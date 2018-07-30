@@ -1,0 +1,210 @@
+
+let emp = (job1,job2);;
+
+
+let find p = 
+if toString(!(fst emp).employee) == toString([p]) 
+then (p,(fst emp))
+else if 
+toString(!(snd emp).employee) == toString([p]) 
+then (p,(snd emp))
+else
+let empol = new Employment in
+(p,empol)
+;;
+
+
+find jobs;;
+it: Profile[] * Employment[]
+it = (
+ This person's information -
+ Name: "Jobs"
+ Age: 42
+ Sex: "Male"
+ Education: "Master",
+ Employment Status -
+ Job Title: "Developer"
+ Position: "Director"
+ Salary: 13500.
+ Bonus: 4000.
+ Total Income: 17500.)
+
+
+
+
+find allen;;
+it: Profile[] * Employment[]
+it = (
+ This person's information -
+ Name: "Allen"
+ Age: 21
+ Sex: "Male"
+ Education: "Bachelor",
+ Employment Status -
+ Job Title: "Accountant"
+ Position: "Part-time"
+ Salary: 500.
+ Bonus: 50.
+ Total Income: 550.)
+
+
+
+
+find justin;;
+it: Profile[] * Employment[]
+it = (
+ This person's information -
+ Name: "Justin"
+ Age: 31
+ Sex: "Male"
+ Education: "Bachelor",
+ Employment Status -
+ Job Title: _void
+ Position: _void
+ Salary: _void
+ Bonus: _void
+ Total Income: _void)
+
+
+
+
+let est = (proper3,proper4);;
+
+
+let find1 p = 
+if toString(!(fst est).owner) == toString([p]) 
+then (p,(fst est))
+else if 
+toString(!(snd est).owner) == toString([p]) 
+then (p,(snd est))
+else
+let pr = new Property in
+(p,pr)
+;;
+
+
+find1 justin;;
+it: Profile[] * Property[]
+it = (
+ This person's information -
+ Name: "Justin"
+ Age: 31
+ Sex: "Male"
+ Education: "Bachelor",
+ The address is: 281 Federal st/rd Sunny Hills area Brisbane QLD)
+
+
+
+
+find1 ashley;;
+it: Profile[] * Property[]
+it = (
+ This person's information -
+ Name: "Ashley"
+ Age: 19
+ Sex: "Female"
+ Education: "Bachelor",
+ The address is: 1 Yanko st/rd Macquarie area Sydney NSW)
+
+
+
+
+find1 peter;;
+it: Profile[] * Property[]
+it = (
+ This person's information -
+ Name: "Peter"
+ Age: 28
+ Sex: "Male"
+ Education: "High-School",
+_void)
+~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================================================================================================================================================
+                                                   Version 2.0
+(**************************************************Testing query********************************************)
+============================================================================================================================================================
+
+
+
+
+let rec (retrieveEmp: a -> Maybe Employment) =
+|(e: Employment) -> if toString(!e.employee) == toString([jobs]) then Some e else None
+|x -> None
+;;
+
+
+select retrieveEmp works;;
+it: List Employment
+it = [
+Employment Status -
+Job Title: "Developer"
+Position: "Director"
+Salary: 13500.
+Bonus: 4000.
+Total Income: 17500.]
+
+
+
+
+
+
+
+
+let rec (retrievePro: a -> Maybe Property) =
+|(p: Property) -> if toString(!p.owner) == toString([allen]) then Some p else None
+|x -> None
+;;
+
+
+select retrievePro propers;;
+it: List Property
+it = [
+The address is: 29 Parramatta st/rd Central area Melbourn VIC]
+
+
+
+
+
+
+
+
+let rec (retrieveVeh: a -> Maybe Vehicle) =
+|(v: Vehicle) -> if toString(!v.owner) == toString([nancy]) then Some v else None
+|x -> None
+;;
+
+
+select retrieveVeh vehicles;;
+it: List Vehicle
+it = [
+ The vehicle's information-  
+ Mode: "Van"
+ Plate Number: ueoqv2884110
+ Register Date: 27/2/2007
+ Brand: "Nissan"
+ Capacity: 4.
+]

@@ -1,0 +1,550 @@
+﻿
+
+
+
+class Profile {
+name:String;
+age:Int;
+sex:String;
+education:String;
+friends: List Profile;
+get_name = { | () -> !this.name}
+set_name = {fun n -> this.name = n}
+get_age = { | () -> !this.age}
+set_age = {fun a -> this.age = a}
+get_sex = { | () -> !this.sex}
+set_sex = {fun s -> this.sex = s}
+get_education = { | () -> !this.education}
+set_education = {fun e -> this.education = e}
+get_friends = {|() -> !this.friends}
+set_friends = {fun p -> this.friends = p}
+static make = {fun n a s e ->
+let res = new Profile in
+res.set_name n;
+res.set_age a;
+res.set_sex s;
+res.set_education e;
+res
+}
+with toString += | (x:Profile) ->
+"\n This person's information - \n Name: " ^ (toString (x.get_name())) ^ "\n Age: " ^ (toString (x.get_age())) ^ "\n Sex: " ^ (toString (x.get_sex())) ^ "\n Education: " ^ (toString (x.get_education()))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+class Employment {
+
+
+employee : List Profile;
+job: String;
+position: String;
+salary : Float;
+bonus : Float;
+total: Float;
+
+
+get_job = {|() -> !this.job}
+set_job = {fun j -> this.job = j}
+get_position = {|() -> !this.position}
+set_position = {fun p -> this.position = p}
+get_salary = {|() -> !this.salary}
+set_salary = {fun s -> this.salary = s}
+get_bonus = {|() -> !this.bonus}
+set_bonus = {fun b -> this.bonus = b}
+get_total = {|() -> !this.total}
+update_total = { this.total = !this.salary + !this.bonus}
+get_employee = {|() -> !this.employee}
+set_employee = { fun e -> this.employee = e}
+static make = {fun e j p s b->
+let res = new Employment in
+res.set_employee e;
+res.set_job j;
+res.set_position p;
+res.set_salary s;
+res.set_bonus b;
+res.update_total;
+res
+}
+
+
+
+
+with
+toString += |(tst: Employment) ->
+"\n Employment Status - \n Job Title: " ^ (toString(tst.get_job())) ^ "\n Position: " ^ (toString(tst.get_position())) ^ "\n Salary: " ^ (toString(tst.get_salary())) ^ "\n Bonus: " ^ (toString(tst.get_bonus())) ^ "\n Total Income: " ^ (toString(tst.get_total()))
+}
+
+
+
+
+
+
+
+
+datatype Address = Address of Int and String and String and String and String
+with
+toString += | Address num street district city state ->
+" The address is: " ^ (toString num) ^ " " ^ street ^ " st/rd " ^ district ^ " area " ^ city ^  " " ^ state;;
+
+
+
+
+
+
+class Property {
+owner: List Profile;
+address : Address;
+
+
+get_address = {|() -> !this.address}
+set_address = {fun a -> this.address = a}
+get_owner = {|() -> !this.owner}
+set_owner = { fun o -> this.owner = o}
+static make = {fun a o ->
+let res = new Property in
+res.set_address a;
+res.set_owner o;
+res
+}
+with
+toString += |(x:Property) ->
+"\n"^ (toString (x.get_address()))
+}
+
+
+
+
+
+
+
+
+datatype Date = Date of Int and Int and Int
+with
+toString += | Date day month year ->
+(toString day) ^ "/" ^ (toString month) ^ "/" ^ (toString year);;
+
+
+
+
+
+
+datatype MixNum = MixNum of String and Int
+with
+toString += | MixNum char num ->
+char ^ (toString num);;
+
+
+
+
+
+
+
+
+
+
+
+
+class Vehicle extends Property {
+
+
+mode: String;
+plateNum: MixNum;
+regDate: Date;
+company: String;
+capacity: Float;
+
+
+get_plateNum = {|()-> !this.plateNum}
+set_plateNum = {fun p -> this.plateNum = p}
+get_mode = {|()-> !this.mode}
+set_mode = {fun m -> this.mode = m}
+get_regDate = {|()-> !this.regDate}
+set_regDate = {fun r -> this.regDate = r}
+get_company = {|()-> !this.company}
+set_company = {fun s -> this.company = s}
+get_capacity = {|() -> !this.capacity}
+set_capacity = {fun c -> this.capacity = c}
+
+
+static make = {fun p m r s c ->
+let res = new Vehicle in
+res.set_plateNum p;
+res.set_mode m;
+res.set_regDate r;
+res.set_company s;
+res.set_capacity c;
+res
+}
+
+
+
+
+with
+toString += |(v:Vehicle) ->
+"\n The vehicle's information-  \n Mode: " ^ (toString (v.get_mode())) ^ "\n Plate Number: " ^ (toString (v.get_plateNum())) ^ "\n Register Date: " ^ (toString (v.get_regDate())) ^ "\n Brand: " ^ (toString (v.get_company())) ^ "\n Capacity: " ^ (toString (v.get_capacity())) ^ "\n"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+============================================================================================================================================================
+(*********************************************Create Data**************************************************)
+============================================================================================================================================================
+
+
+
+
+let jobs = Profile.make "Jobs" 42 "Male" "Master";;
+
+
+let allen = Profile.make "Allen" 21 "Male" "Bachelor";;   
+
+
+let justin = Profile.make "Justin" 31 "Male" "Bachelor";;  
+
+
+let ashley = Profile.make "Ashley" 19 "Female" "Bachelor";;  
+
+
+let peter = Profile.make "Peter" 28 "Male" "High-School";;  
+
+
+let nancy = Profile.make "Nancy" 21 "Female" "Bachelor";;  
+
+
+let bob = Profile.make "Bob" 51 "Male" "High-School";;  
+
+
+let wendy = Profile.make "Wendy" 25 "Female" "Master";;  
+
+
+
+
+let job1 = Employment.make [jobs] "Developer" "Director" 13500. 4000.;;
+
+
+let job2 = Employment.make [allen] "Accountant" "Part-time" 500. 50.;;
+
+
+let job3 = Employment.make [justin] "Teacher" "Senior" 1823. 482.;;
+
+
+let job4 = Employment.make [ashley] "Operator" "Junior" 890. 52.;;
+
+
+let job5 = Employment.make [peter] "developer" "Junior" 1200. 210.5;;
+
+
+let job6 = Employment.make [nancy] "Super-Maket" "Cashier" 500. 0.;;
+
+
+let job7 = Employment.make [bob] "Restaurant" "Manager" 5000. 785.;;
+
+
+let job8 = Employment.make [wendy] "Estate" "Consultant" 1500. 800.;;
+
+
+
+
+let proper1 =  Property.make (Address 7 "George" "CBD" "Sydney" "NSW") [jobs];;
+
+
+let proper2 = Property.make (Address 29 "Parramatta" "Central" "Melbourn" "VIC") [allen];;
+
+
+let proper3 = Property.make (Address 281 "Federal" "Sunny Hills" "Brisbane" "QLD") [justin];;
+
+
+let proper4 = Property.make (Address 1 "Yanko" "Macquarie" "Sydney" "NSW") [ashley];;
+
+
+let proper5 = Property.make (Address 7 "John" "Wilson" "Perth" "WA") [peter];;
+
+
+let proper6 = Property.make (Address 90 "Bridge" "Wall" "Canberra" "ACT") [nancy];;
+
+
+let proper7 = Property.make (Address 122 "Curry" "Chatswood" "Melbourn" "VIC") [bob];;
+
+
+let proper8 = Property.make (Address 203 "Therry" "Redfern" "Sydney" "NSW") [wendy];;
+
+
+
+
+let veh1 = Vehicle.make (MixNum "xohs" 832874) "Sports Car" (Date 3 3 2010) "Toyota" 1.6;;
+veh1.set_owner([jobs]);;
+veh1.set_address(!proper1.address);;
+veh1;;
+
+
+let veh2 = Vehicle.make (MixNum "jeaq" 427877241) "Van" (Date 27 9 2009) "Ford" 4.0;;
+veh2.set_owner([allen]);;
+veh2.set_address(!proper2.address);;
+veh2;;
+
+
+let veh3 = Vehicle.make (MixNum "coas" 02851903) "Sedan" (Date 8 2 2008) "Honda" 2.0;;
+veh3.set_owner([justin]);;
+veh3.set_address(!proper3.address);;
+veh3;;
+
+
+let veh4 = Vehicle.make (MixNum "awp" 0082717) "SUV" (Date 27 9 2009) "Suzuki" 2.5;;
+veh4.set_owner([ashley]);;
+veh4.set_address(!proper4.address);;
+veh4;;
+
+
+let veh5 = Vehicle.make (MixNum "ueiry" 8811790) "Sedan" (Date 3 12 2012) "Holden" 1.5;;
+veh5.set_owner([peter]);;
+veh5.set_address(!proper5.address);;
+veh5;;
+
+
+let veh6 = Vehicle.make (MixNum "ueoqv" 2884110) "Van" (Date 27 2 2007) "Nissan" 4.0;;
+veh6.set_owner([nancy]);;
+veh6.set_address(!proper6.address);;
+veh6;;
+
+
+let veh7 = Vehicle.make (MixNum "jqiqm" 7177283) "Sedan" (Date 18 4 2013) "Suzuki" 2.0;;
+veh7.set_owner([bob]);;
+veh7.set_address(!proper7.address);;
+veh7;;
+
+
+let veh8 = Vehicle.make (MixNum "awmq" 3532711) "Sedan" (Date 8 10 2012) "Toyota" 1.5;;
+veh8.set_owner([wendy]);;
+veh8.set_address(!proper8.address);;
+veh8;;
+
+
+
+
+let works = (job1,job2,job3,job4,job5,job6,job7,job8);;
+
+
+let propers = (proper1,proper2,proper3,proper4,proper5,proper6,proper7,proper8);;
+
+
+let vehicles = (veh1,veh2,veh3,veh4,veh5,veh6,veh7,veh8);;
+
+
+
+
+
+
+============================================================================================================================================================
+(*The main function query to retrieve the person’s information by input their assigned name*)
+============================================================================================================================================================
+
+
+
+
+let ext retrieve p =
+let person = p
+in
+let rec (retrieveEmp: a -> Maybe Employment) =
+|(e: Employment) -> if toString(!e.employee) == toString([person]) then Some e else None
+|x -> None
+in
+let rec (retrievePro: a -> Maybe Property) =
+|(p: Property) -> if toString(!p.owner) == toString([person]) then Some p else None
+|x -> None
+in
+let rec (retrieveVeh: a -> Maybe Vehicle) =
+|(v: Vehicle) -> if toString(!v.owner) == toString([person]) then Some v else None
+|x -> None
+in
+(p,select retrieveEmp works, select retrievePro propers, select retrieveVeh vehicles);;
+
+
+
+
+
+
+===========================================================================================================================================================
+(************************The special cases to the main function query********************************)
+===========================================================================================================================================================
+
+
+
+
+retrieve += |(x: Int) ->
+let rec (retrieveEmp: a -> Maybe Employment) =
+|(e: Employment) -> if toString(!e.employee) == toString([x])then Some e else None
+|x -> None
+in
+let rec (retrievePro: a -> Maybe Property) =
+|(p: Property) -> if toString(!p.owner) == toString([x])then Some p else None
+|x -> None
+in
+let rec (retrieveVeh: a -> Maybe Vehicle) =
+|(v: Vehicle) -> if toString(!v.owner) == toString([x])  then Some v else None
+|x -> None
+in
+(0,select retrieveEmp works, select retrievePro propers, select retrieveVeh vehicles);;
+
+
+retrieve += |(x: String) ->
+let rec (retrieveEmp: a -> Maybe Employment) =
+|(e: Employment) -> if toString(!e.employee) == toString([x])then Some e else None
+|x -> None
+in
+let rec (retrievePro: a -> Maybe Property) =
+|(p: Property) -> if toString(!p.owner) == toString([x])then Some p else None
+|x -> None
+in
+let rec (retrieveVeh: a -> Maybe Vehicle) =
+|(v: Vehicle) -> if toString(!v.owner) == toString([x])  then Some v else None
+|x -> None
+in
+("Empty file",select retrieveEmp works, select retrievePro propers, select retrieveVeh vehicles);;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================================================================================================================================================
+(***************************************retrieve stored  person’s information*****************************)
+============================================================================================================================================================
+
+
+retrieve jobs;;
+it: Profile[] * List Employment * List Property * List Vehicle
+it = (
+ This person's information -
+ Name: "Jobs"
+ Age: 42
+ Sex: "Male"
+ Education: "Master",[
+ Employment Status -
+ Job Title: "Developer"
+ Position: "Director"
+ Salary: 13500.
+ Bonus: 4000.
+ Total Income: 17500.],[
+ The address is: 7 George st/rd CBD area Sydney NSW],[
+ The vehicle's information-  
+ Mode: "Sports Car"
+ Plate Number: xohs832874
+ Register Date: 3/3/2010
+ Brand: "Toyota"
+ Capacity: 1.6
+])
+
+
+
+
+
+
+retrieve peter;;
+it: Profile[] * List Employment * List Property * List Vehicle
+it = (
+ This person's information -
+ Name: "Peter"
+ Age: 28
+ Sex: "Male"
+ Education: "High-School",[
+ Employment Status -
+ Job Title: "developer"
+ Position: "Junior"
+ Salary: 1200.
+ Bonus: 210.5
+ Total Income: 1410.5],[
+ The address is: 7 John st/rd Wilson area Perth WA],[
+ The vehicle's information-  
+ Mode: "Sedan"
+ Plate Number: ueiry8811790
+ Register Date: 3/12/2012
+ Brand: "Holden"
+ Capacity: 1.5
+])
+
+
+
+
+
+
+
+
+============================================================================================================================================================
+(******************************special cases outcomes in retrieve function*****************************)
+============================================================================================================================================================
+
+
+
+
+retrieve 1;;    
+it: Int * List Employment * List Property * List Vehicle
+it = (0,[],[],[])
+
+
+
+
+retrieve "Two";;
+it: String * List Employment * List Property * List Vehicle
+it = ("Empty file",[],[],[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
